@@ -1,15 +1,15 @@
-import NextAuth from 'next-auth'
+import NextAuth from 'next-auth';
 import FacebookProvider from 'next-auth/providers/facebook';
 import GoogleProvider from 'next-auth/providers/google';
-import GitHubProvider from "next-auth/providers/github";
-import DiscordProvider from "next-auth/providers/discord";
-import TwitterProvider from "next-auth/providers/twitter";
-import Auth0Provider from "next-auth/providers/auth0";
-import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
-import clientPromise from "../../../lib/mongodb"
+import GitHubProvider from 'next-auth/providers/github';
+import DiscordProvider from 'next-auth/providers/discord';
+import TwitterProvider from 'next-auth/providers/twitter';
+import Auth0Provider from 'next-auth/providers/auth0';
+import { MongoDBAdapter } from '@next-auth/mongodb-adapter';  // Correct import
+import clientPromise from "../../../lib/mongodb";  // Make sure this is set up properly
 
 export default NextAuth({
-  adapter: MongoDBAdapter(clientPromise) as any,  // Cast to any to bypass type error
+  adapter: MongoDBAdapter(clientPromise) as any,  // Cast to any to bypass type error if needed
   providers: [
     GoogleProvider({
         clientId: process.env.GOOGLE_ID as string,
@@ -33,5 +33,4 @@ export default NextAuth({
       issuer: process.env.AUTH0_ISSUER as string,
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
-})
+});
